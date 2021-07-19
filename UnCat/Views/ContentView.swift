@@ -9,17 +9,15 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @ObservedObject var remoteImageController = RemoteImageController.shared
+    @ObservedObject var randomPhoto = Photos()
     
     var body: some View {
         NavigationView{
             List{
-                ForEach(remoteImageController.results, content: { result in
+                ForEach(randomPhoto.photos, content: { result in
                     NetworkImage(url: URL(string: result.urls.regular))
+                        .listRowSeparator(.hidden)
                 })
-            }
-            .onAppear() {
-                remoteImageController.getImages()
             }
             .navigationTitle("UnCat")
         }
